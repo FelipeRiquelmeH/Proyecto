@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.UserController">
+   <children>
+      <AnchorPane layoutX="1.0" layoutY="-1.0" prefHeight="256.0" prefWidth="460.0">
+         <children>
+            <TextArea fx:id="userInfo" layoutX="246.0" layoutY="26.0" prefHeight="209.0" prefWidth="200.0" />
+            <Text layoutX="14.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre:" />
+            <TextField fx:id="usrNombre" layoutX="83.0" layoutY="26.0" prefHeight="31.0" prefWidth="155.0" />
+            <TextField fx:id="usrApellido" layoutX="83.0" layoutY="69.0" prefHeight="31.0" prefWidth="155.0" />
+            <Pane layoutX="14.0" layoutY="111.0" prefHeight="42.0" prefWidth="222.0">
+               <children>
+                  <RadioButton fx:id="sexoH" layoutX="14.0" layoutY="11.0" mnemonicParsing="false" text="H">
+                  <toggleGroup>
+                              <ToggleGroup fx:id="Sexo" />
+               	  </toggleGroup></RadioButton>
+                  <RadioButton fx:id="sexoM" layoutX="80.0" layoutY="11.0" mnemonicParsing="false" text="M" toggleGroup="$Sexo" />
+                  <RadioButton fx:id="sexoNA" layoutX="143.0" layoutY="11.0" mnemonicParsing="false" text="N/A" toggleGroup="$Sexo" />
+               </children>
+            </Pane>
+            <Text layoutX="14.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Apellido:" />
+            <Text layoutX="15.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mail:" />
+            <TextField fx:id="usrMail" layoutX="59.0" layoutY="154.0" prefHeight="31.0" prefWidth="178.0" />
+            <Button layoutX="58.0" layoutY="204.0" mnemonicParsing="false" onAction="#guardarCambios" opacity="0.8" text="Guardar Cambios" />
+         </children></AnchorPane>
+   </children>
+</AnchorPane>

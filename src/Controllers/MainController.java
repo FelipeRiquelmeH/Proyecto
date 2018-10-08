@@ -72,7 +72,7 @@ public class MainController implements Initializable{
 		menu.initialize();
 	}
 	
-	public void login(ActionEvent event)  {
+	/*public void login(ActionEvent event)  {
 		
 			SqlConection sql = new SqlConection();
 			
@@ -99,7 +99,7 @@ public class MainController implements Initializable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		}
+		}*/
 		
 	public void SQLSetup(ActionEvent event) throws Exception {
 		String[] data = new String[6];

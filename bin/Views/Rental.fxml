@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.RentalController">
+  <tabs>
+    <Tab text="Libros ">
+         <content>
+            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Rentar Libro">
+                     <content>
+                        <Pane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <TextField fx:id="idLibro" alignment="CENTER" layoutX="175.0" layoutY="12.0" promptText="XXXX - 0000" />
+                              <TextField fx:id="rutAlumno" alignment="CENTER" layoutX="175.0" layoutY="50.0" promptText="12345678-X" />
+                              <Text layoutX="32.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Identificador Libro" />
+                              <Text layoutX="75.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rut Alumno" />
+                              <Button layoutX="378.0" layoutY="50.0" mnemonicParsing="false" onAction="#verificar" text="Verificar" />
+                              <Button layoutX="384.0" layoutY="251.0" mnemonicParsing="false" onAction="#rentarLibro" text="Rentar" />
+                              <Button layoutX="384.0" layoutY="12.0" mnemonicParsing="false" onAction="#buscarLibro" text="Buscar" />
+                              <TextArea fx:id="infoLibro" layoutX="140.0" layoutY="93.0" prefHeight="200.0" prefWidth="200.0" />
+                              <Label fx:id="lblDias" layoutX="391.0" layoutY="218.0" text="'X'" />
+                              <Text layoutX="361.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Libro rentable por" />
+                              <Text layoutX="421.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" text="dias" />
+                              <Text layoutX="362.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario: " />
+                              <Label fx:id="lblUsuario" alignment="TOP_LEFT" layoutX="360.0" layoutY="140.0" prefHeight="45.0" prefWidth="186.0" />
+                           </children>
+                        </Pane>
+                     </content>
+                  </Tab>
+                <Tab text="Devolucion Libro">
+                     <content>
+                        <Pane prefHeight="200.0" prefWidth="200.0">
+                        <children>
+                              <TextField fx:id="retCode" alignment="CENTER" layoutX="231.0" layoutY="32.0" promptText="XXXX - 0000" />
+                              <TextField fx:id="retRut" alignment="CENTER" layoutX="231.0" layoutY="79.0" promptText="12345678-X" />
+                              <Text layoutX="21.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Identificador unico Libro" />
+                              <Text layoutX="101.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rut Alumno" />
+                              <Button layoutX="268.0" layoutY="263.0" mnemonicParsing="false" onAction="#retornarLibro" text="Retornar" />
+                              <Text layoutX="176.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Deuda Entrega : " />
+                              <Label fx:id="userDeuda" layoutX="300.0" layoutY="151.0" prefHeight="21.0" prefWidth="15.0" />
+                           </children>
+                        </Pane>
+                     </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+         </content></Tab>
+  </tabs>
+</TabPane>
