@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.*?>
+
+<TabPane fx:id="tabAdd" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.SearchController">
+  <tabs>
+    <Tab fx:id="taddUser" text="Usuario">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="usrNombre" layoutX="81.0" layoutY="16.0" />
+                  <TextField fx:id="usrApellido" layoutX="358.0" layoutY="17.0" prefHeight="31.0" prefWidth="207.0" />
+                  <TextField fx:id="usrRut" layoutX="62.0" layoutY="59.0" promptText="Ej: 12345678-9" />
+                  <Text layoutX="15.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre" />
+                  <Text layoutX="286.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Apellido" />
+                  <Text layoutX="17.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rut" />
+                  <TextArea fx:id="userInfo" editable="false" layoutX="28.0" layoutY="104.0" opacity="0.87" prefHeight="105.0" prefWidth="533.0" />
+                  <Button layoutX="30.0" layoutY="221.0" mnemonicParsing="false" onAction="#buscarUsuario" text="Buscar" />
+                  <Button layoutX="431.0" layoutY="221.0" mnemonicParsing="false" onAction="#generarReporteUsuario" text="Generar Reporte" />
+                  <Pane layoutX="269.0" layoutY="62.0" prefHeight="24.0" prefWidth="324.0">
+                     <children>
+                        <CheckBox fx:id="selectAll" layoutX="13.0" layoutY="2.0" mnemonicParsing="false" text="Mostrar Todos" />
+                        <CheckBox fx:id="selectAllRentas" layoutX="162.0" layoutY="2.0" mnemonicParsing="false" text="Todas las Rentas" />
+                     </children>
+                  </Pane>
+                  <Button fx:id="btnEditUsuario" layoutX="106.0" layoutY="221.0" mnemonicParsing="false" onAction="#editarUsuario" text="Editar Usuario" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab fx:id="tAddBook" text="Libro">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+		<Text layoutX="26.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Titulo" />
+		<TextField fx:id="bkNombre" layoutX="74.0" layoutY="16.0" prefHeight="31.0" prefWidth="475.0" />
+        <Text layoutX="26.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tema" />
+      <ComboBox fx:id="bkTema" layoutX="77.0" layoutY="74.0" prefWidth="150.0" promptText="N/A" visibleRowCount="10">
+      	<items>
+	        <FXCollections fx:factory="observableArrayList">
+	            <String fx:value="MATE" />
+	            <String fx:value="FISI" />
+	            <String fx:value="QUIM" />
+	            <String fx:value="LENG" />
+	            <String fx:value="INGL" />
+	            <String fx:value="INFO" />
+	            <String fx:value="MECA" />
+	            <String fx:value="ELEC" />
+	            <String fx:value="ECON" />
+	            <String fx:value="OTRO" />
+	        </FXCollections>
+	    </items>
+	  </ComboBox>
+        <Button layoutX="45.0" layoutY="302.0" mnemonicParsing="false" onAction="#buscarLibro" text="Buscar" />
+      <TextArea fx:id="bookInfo" editable="false" focusTraversable="false" layoutX="312.0" layoutY="61.0" opacity="0.81" prefHeight="279.0" prefWidth="268.0" />
+                  <Text layoutX="18.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Codigo Unico" />
+                  <TextField fx:id="bkCode" layoutX="126.0" layoutY="181.0" prefHeight="31.0" prefWidth="150.0" promptText="XXXX - 0000" />
+                  <Button layoutX="152.0" layoutY="302.0" mnemonicParsing="false" onAction="#generarReporteLibro" text="Generar Reporte" />
+                  <Text layoutX="77.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Busqueda Especifica" />
+                  <Button fx:id="btnEditLibro" layoutX="96.0" layoutY="235.0" mnemonicParsing="false" onAction="#editarLibro" text="Editar Libro" />
+	</children></AnchorPane>
+      </content>
+    </Tab>
+  </tabs>
+</TabPane>

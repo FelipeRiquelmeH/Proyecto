@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.collections.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.BookController">
+   <children>
+      <AnchorPane layoutX="-3.0" prefHeight="289.0" prefWidth="516.0">
+         <children>
+            <TextArea fx:id="bookInfo" layoutX="303.0" layoutY="73.0" prefHeight="200.0" prefWidth="200.0" />
+            <Text layoutX="18.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Titulo:" />
+            <Text layoutX="20.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Autor:" />
+            <TextField fx:id="bkTitulo" layoutX="84.0" layoutY="26.0" prefHeight="31.0" prefWidth="419.0" />
+            <TextField fx:id="bkAutor" layoutX="84.0" layoutY="73.0" />
+            <ComboBox fx:id="cbEstado" layoutX="84.0" layoutY="128.0" prefWidth="150.0" promptText="Estado">
+		      	<items>
+		      		<FXCollections fx:factory="observableArrayList">
+		      			<String fx:value="Nuevo" />
+		      			<String fx:value="Buen Estado" />
+		      			<String fx:value="Decente" /> 
+		      		</FXCollections>
+		   		</items>
+	  	 	</ComboBox>
+	      	<ComboBox fx:id="cbDisp" layoutX="118.0" layoutY="179.0" prefWidth="150.0">
+	      		<items>
+		      		<FXCollections fx:factory="observableArrayList">
+		      			<String fx:value="Pregrado" />
+		      			<String fx:value="Tesis" />
+		      			<String fx:value="Postgrado" />
+		      			<String fx:value="Otro" />
+		   			</FXCollections>
+	      		</items>
+	      	</ComboBox>
+            <Text layoutX="18.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo de Libro:" />
+            <Text layoutX="18.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estado:" />
+            <Button layoutX="66.0" layoutY="230.0" mnemonicParsing="false" onAction="#guardarCambios" text="Guardar Cambios" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.*?>
+
+<TabPane fx:id="tabAdd" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AddController">
+  <tabs>
+    <Tab fx:id="taddUser" text="Usuario">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <TextField fx:id="usrNombre" layoutX="81.0" layoutY="16.0" />
+                  <TextField fx:id="usrApellido" layoutX="358.0" layoutY="17.0" prefHeight="31.0" prefWidth="207.0" />
+                  <TextField fx:id="usrRut" layoutX="62.0" layoutY="59.0" promptText="Ej: 12345678-9" />
+                  <Pane layoutX="268.0" layoutY="64.0" prefHeight="21.0" prefWidth="292.0">
+                     <children>
+                        <RadioButton fx:id="sexoH" mnemonicParsing="false" text="Hombre">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="Sexo" />
+                           </toggleGroup></RadioButton>
+                        <RadioButton fx:id="sexoM" layoutX="106.0" mnemonicParsing="false" text="Mujer" toggleGroup="$Sexo" />
+                        <RadioButton fx:id="sexoNA" layoutX="206.0" mnemonicParsing="false" text="N/A" toggleGroup="$Sexo" />
+                     </children>
+                  </Pane>
+                  <TextField fx:id="usrMail" layoutX="62.0" layoutY="102.0" prefHeight="31.0" prefWidth="502.0" promptText="Ej: micorreo@gmail.com" />
+                  <TextField fx:id="usrDireccion" layoutX="92.0" layoutY="146.0" prefHeight="31.0" prefWidth="471.0" promptText="EJ: Calle Falsa 123" />
+                  <Text layoutX="15.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre" />
+                  <Text layoutX="286.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Apellido" />
+                  <Text layoutX="17.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rut" />
+                  <Text layoutX="15.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Direccion" />
+                  <Text layoutX="14.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mail" />
+                  <TextArea fx:id="userInfo" editable="false" layoutX="28.0" layoutY="188.0" opacity="0.87" prefHeight="105.0" prefWidth="533.0" />
+                  <Button layoutX="262.0" layoutY="308.0" mnemonicParsing="false" onAction="#agregarUsuario" text="Agregar" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab fx:id="tAddBook" text="Libro">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+		<Text layoutX="116.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Codigo Alfabético :" />
+		<Text layoutX="28.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Titulo" />
+		<TextField fx:id="txtTitulo" layoutX="77.0" layoutY="58.0" prefHeight="31.0" prefWidth="475.0" />
+		<Text layoutX="27.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Autor" />
+        <TextField fx:id="txtAutor" layoutX="77.0" layoutY="108.0" prefHeight="31.0" prefWidth="164.0" />
+        <Text layoutX="23.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estado" />
+        <Text layoutX="27.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tema" />
+      <Label fx:id="lblTema" layoutX="386.0" layoutY="18.0" prefHeight="21.0" prefWidth="95.0" text="&quot;Tema&quot;" />
+      <ComboBox fx:id="cbTema" layoutX="77.0" layoutY="149.0" onAction="#updCodeTema" prefWidth="150.0" promptText="N/A" visibleRowCount="10">
+      	<items>
+	        <FXCollections fx:factory="observableArrayList">
+	            <String fx:value="MATE" />
+	            <String fx:value="FISI" />
+	            <String fx:value="QUIM" />
+	            <String fx:value="LENG" />
+	            <String fx:value="INGL" />
+	            <String fx:value="INFO" />
+	            <String fx:value="MECA" />
+	            <String fx:value="ELEC" />
+	            <String fx:value="ECON" />
+	            <String fx:value="OTRO" />
+	        </FXCollections>
+	    </items>
+	  </ComboBox>
+      <Button layoutX="242.0" layoutY="149.0" mnemonicParsing="false" onAction="#updCodeTema" prefHeight="31.0" prefWidth="44.0" text="O" />
+      <Label fx:id="lblAlfa" layoutX="274.0" layoutY="18.0" text="XXXX" />
+      <Label fx:id="lblNum" layoutX="328.0" layoutY="18.0" text="0000" />
+      <ComboBox fx:id="cbEstado" layoutX="77.0" layoutY="201.0" prefWidth="150.0" promptText="Estado">
+      	<items>
+      		<FXCollections fx:factory="observableArrayList">
+      			<String fx:value="Nuevo" />
+      			<String fx:value="Buen Estado" />
+      			<String fx:value="Decente" /> 
+      		</FXCollections>
+   		</items>
+  	  </ComboBox>
+      <ComboBox fx:id="cbDisp" layoutX="124.0" layoutY="251.0" prefWidth="150.0">
+      	<items>
+      		<FXCollections fx:factory="observableArrayList">
+      			<String fx:value="Pregrado" />
+      			<String fx:value="Tesis" />
+      			<String fx:value="Postgrado" />
+      			<String fx:value="Otro" />
+   			</FXCollections>
+      	</items>
+      </ComboBox>
+        <Button layoutX="107.0" layoutY="302.0" mnemonicParsing="false" onAction="#agregarLibro" text="Agregar" />
+      <Text layoutX="307.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="  -" wrappingWidth="14.99853515625" />
+      <Text layoutX="19.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tipo de Libro" />
+      <TextArea fx:id="libroInfo" editable="false" focusTraversable="false" layoutX="311.0" layoutY="107.0" opacity="0.81" prefHeight="234.0" prefWidth="268.0" />
+	</children></AnchorPane>
+      </content>
+    </Tab>
+  </tabs>
+</TabPane>

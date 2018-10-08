@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<Pane maxHeight="185.0" maxWidth="490.0" minHeight="185.0" minWidth="490.0" prefHeight="185.0" prefWidth="490.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainController">
+   <children>
+      <Label layoutX="19.0" layoutY="65.0" text="Usuario   *" />
+      <Label layoutX="24.0" layoutY="24.0" text="IP           *" />
+      <Label layoutX="298.0" layoutY="65.0" text="DB" />
+      <Label layoutX="294.0" layoutY="24.0" text="Port" />
+      <Label layoutX="19.0" layoutY="105.0" text="Password" />
+      <TextField fx:id="Txt_IP" layoutX="101.0" layoutY="19.0" promptText="SQL server IP" />
+      <TextField fx:id="Txt_Port" layoutX="343.0" layoutY="19.0" prefHeight="31.0" prefWidth="60.0" text="3306" />
+      <TextField fx:id="Txt_User" layoutX="101.0" layoutY="60.0" />
+      <TextField fx:id="Txt_DB" layoutX="347.0" layoutY="60.0" prefHeight="31.0" prefWidth="130.0" />
+      <TextField fx:id="Txt_Password" layoutX="101.0" layoutY="100.0" />
+      <ProgressBar fx:id="pbar_Progress" layoutX="102.0" layoutY="148.0" prefHeight="23.0" prefWidth="290.0" progress="0.0" />
+      <Button layoutX="18.0" layoutY="144.0" mnemonicParsing="false" onAction="#SQLSetup" text="Probar" />
+      <Button fx:id="btn_Guardar" layoutX="403.0" layoutY="144.0" mnemonicParsing="false" onAction="#SqlGuardar" text="Guardar" />
+   </children>
+</Pane>
