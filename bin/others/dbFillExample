@@ -1,0 +1,82 @@
+use DBPOO;
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('10416979-1','Delia Veronica Esmeralda','Ibacache Bastias','null','H');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('14736503-9','Byron Leonardo','Guerrero Fuel','null','H');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('15069099-4','Javier Ignacio','Ortiz Diaz','null','H');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('17177231-1','Fabrizio Edoardo','Melis Jimenez','null','H');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('17782372-4','Christian Alexander','Pizarro Beltran','null','H');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('17984211-4','Mario Sergio','Diaz Quiroga','null','H');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('18659338-3','Maximiliano Renato','Rojas Maureira','null','H');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('18660862-3','Felipe Andres','Navarro Chamaca','null','H');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('18782280-7','Ricardo Andres','Consigliere Folch','null','H');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('18786864-5','Cristofer Daniel','Aviles Vega','null','H');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('18848707-6','Byron Andres','Ortiz Cofre','null','H');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('18908038-7','Nicolas Miguel Alejandro','Fuentelaba Brito','nicolas.fuentealba.brito@gmail.com','H');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('19191807-K','Felipe Ignacio','Concha Almeida','null','H');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('19234064-0','Ricardo Andres','Cornejo Hernandez','null','H');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('19287985-K','Pablo Ignacio','Contreras Estrada','null','H');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('19302409-2','Alvaro Fabricio','Dominguez Robles','null','H');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('19394268-7','Sebastian Ignacio','Brito Rojas','null','H');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('19579793-5','Hernan Patricio','Ponce Figueroa','null','H');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('19614178-2','Felipe Andres','Riquelme Hernandez','','H');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('19618478-3','Franco Omar','Castelli Inostroza','null','H');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('19619390-1','Miguel Andres','Valenzuela Inostroza','null','H');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('19679368-2','Yenifer Constanza','Sandoval San Martin','null','M');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('19791304-5','Katherine Andrea','Arevalo Parker','null','M');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('19851980-4','Robinson Cristobal','Orellana Ramirez','null','H');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('19899192-9','Franco Antonio','Valdivia Barco','null','H');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('19939690-0','David Ivan','Rojas Sanchez','null','H');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('19996715-0','Hector Ignacio','Gutierrez Moya','null','H');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('19997394-0','Nicolas Pedro','Arriaza Verreni','null','H');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('20080519-4','Gabriel Ignacio','Garcia Mercado','null','H');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('20172375-2','Lorena Estela','Moreira Hidalgo','null','M');
+INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('20181368-9','Javier Ignacio','Ortiz Diaz','null','H');
+
+use DBPOO;
+INSERT INTO Persona(rut,nombre,apellido,mail,cargo,sexo) VALUES ('18908038-7','Nicolas Miguel Alejandro','Fuentelaba Brito','','','H');
+INSERT INTO Persona(rut,nombre,apellido,mail,cargo,sexo) VALUES ('19939690-0','David Ivan','Rojas Sanchez','','','H');
+INSERT INTO Persona(rut,nombre,apellido,mail,cargo,sexo) VALUES ('19614178-2','Felipe Andres','Riquelme Hernandez','','','H');
+
+use DBPOO;
+INSERT INTO DataLogin(Persona_rut,Password) VALUES ('18908038-7','asd123');
+INSERT INTO DataLogin(Persona_rut,Password) VALUES ('19939690-0','7bmrrv4a9qg');
+INSERT INTO DataLogin(Persona_rut,Password) VALUES ('19614178-2','matenme');
+
+use DBPOO;
+INSERT INTO DatosObjeto(TipoObjeto,TiempoPermitido) VALUES ('Lib-Tesis','36');
+INSERT INTO DatosObjeto(TipoObjeto,TiempoPermitido) VALUES ('Lib-Mates','96');
+INSERT INTO DatosObjeto(TipoObjeto,TiempoPermitido) VALUES ('Cal-Cient','10');
+INSERT INTO DatosObjeto(TipoObjeto,TiempoPermitido) VALUES ('Cal-Grafi','5');
+
+use DBPOO;
+INSERT INTO Insumo (idAlfaNumerico,nombre,modelo,tipoObjeto) VALUES ('CACI-0001','Calculadora Cientifica','FX-350LA','Cal-Cient');
+INSERT INTO Insumo (idAlfaNumerico,nombre,modelo,tipoObjeto) VALUES ('CACI-0002','Calculadora Cientifica','FX-350LA','Cal-Cient');
+INSERT INTO Insumo (idAlfaNumerico,nombre,modelo,tipoObjeto) VALUES ('CACI-0003','Calculadora Cientifica','FX-350LA','Cal-Cient');
+INSERT INTO Insumo (idAlfaNumerico,nombre,modelo,tipoObjeto) VALUES ('CACI-0004','Calculadora Cientifica','FX-350LA','Cal-Cient');
+
+INSERT INTO Insumo (idAlfaNumerico,nombre,modelo,tipoObjeto) VALUES ('CAGF-0001','Calculadora Texas Instrument','TI NPsire','Cal-Grafi');
+INSERT INTO Insumo (idAlfaNumerico,nombre,modelo,tipoObjeto) VALUES ('CAGF-0002','Calculadora Texas Instrument','TI NPsire','Cal-Grafi');
+
+INSERT INTO Insumo (idAlfaNumerico,nombre,modelo,tipoObjeto) VALUES ('CAGF-0003','Calculadora Texas Instrument','TI 89','Cal-Grafi');
+INSERT INTO Insumo (idAlfaNumerico,nombre,modelo,tipoObjeto) VALUES ('CAGF-0004','Calculadora Texas Instrument','TI 89','Cal-Grafi');
+
+use DBPOO;
+INSERT INTO Libro (idAlfaNumerico,nombre,autor,tema,TipoObjeto) VALUES 
+	(  'MALI-0101','Algebra Lineal','Autor1 , Autor2','Matematica , Algebra , Lineal','Lib-Mates' );
+INSERT INTO Libro (idAlfaNumerico,nombre,autor,tema,TipoObjeto) VALUES 
+	(  'MALI-0102','Algebra Lineal','Autor1 , Autor2','Matematica , Algebra , Lineal','Lib-Mates' );
+INSERT INTO Libro (idAlfaNumerico,nombre,autor,tema,TipoObjeto) VALUES 
+	(  'MALI-0103','Algebra Lineal','Autor2 , Autor3','Matematica , Algebra , Lineal','Lib-Mates' );
+	
+INSERT INTO Libro (idAlfaNumerico,nombre,autor,tema,TipoObjeto) VALUES 
+	(  'MALI-1201','Algebra Lineal y Eq Diferenciales','Autor3 , Autor1','Matematica , Algebra , Lineal , Equaciones Diferenciales','Lib-Mates' );
+INSERT INTO Libro (idAlfaNumerico,nombre,autor,tema,TipoObjeto) VALUES 
+	(  'MALI-1202','Algebra Lineal y Eq Diferenciales','Autor4 , Autor3','Matematica , Algebra , Lineal , Equaciones Diferenciales','Lib-Mates' );
+INSERT INTO Libro (idAlfaNumerico,nombre,autor,tema,TipoObjeto) VALUES 
+	(  'MALI-1203','Algebra Lineal y Eq Diferenciales','Autor1','Matematica , Algebra , Lineal , Equaciones Diferenciales','Lib-Mates' );
+
+INSERT INTO Libro (idAlfaNumerico,nombre,autor,tema,TipoObjeto) VALUES 
+	(  'TESI-0001','La teoria del todo','Autor5','Matematica , Algebra , Lineal , everything ','Lib-Tesis' );
+	INSERT INTO Libro (idAlfaNumerico,nombre,autor,tema,TipoObjeto) VALUES 
+	(  'TESI-4341','Titulo interezante por autor6','Autor6','Vida','Lib-Tesis' );
+	INSERT INTO Libro (idAlfaNumerico,nombre,autor,tema,TipoObjeto) VALUES 
+	(  'TESI-1432',' Filosofia de la religion ','Autor7','Religion , Vida , Filosofia','Lib-Tesis' );

@@ -1,0 +1,138 @@
+-- MySQL Workbench Synchronization
+-- Generated: 2018-10-04 21:24
+-- Model: New Model
+-- Version: 1.0
+-- Project: Name of the project
+-- Author: Nicolas
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+CREATE SCHEMA IF NOT EXISTS `DBPOO` DEFAULT CHARACTER SET utf8 ;
+
+CREATE TABLE IF NOT EXISTS `DBPOO`.`Libro` (
+  `idLibro` INT(11) NOT NULL,
+  `idAlfaNumerico` VARCHAR(9) NOT NULL,
+  `nombre` VARCHAR(45) NOT NULL,
+  `autor` VARCHAR(45) NOT NULL,
+  `tema` VARCHAR(45) NOT NULL,
+  `EstadoRenta` INT(11) NULL DEFAULT NULL,
+  `tipoObjeto` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`idLibro`),
+  UNIQUE INDEX `idAlfaNumerico_UNIQUE` (`idAlfaNumerico` ASC) VISIBLE,
+  UNIQUE INDEX `EstadoRenta_UNIQUE` (`EstadoRenta` ASC) VISIBLE,
+  INDEX `fk_Libro_DatosObjeto1_idx` (`tipoObjeto` ASC) VISIBLE,
+  CONSTRAINT `fk_Libro_DatosObjeto1`
+    FOREIGN KEY (`tipoObjeto`)
+    REFERENCES `DBPOO`.`DatosObjeto` (`TipoObjeto`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS `DBPOO`.`Persona` (
+  `rut` VARCHAR(10) NOT NULL,
+  `nombre` VARCHAR(45) NOT NULL,
+  `apellido` VARCHAR(45) NOT NULL,
+  `mail` VARCHAR(45) NOT NULL,
+  `cargo` VARCHAR(45) NOT NULL,
+  `sexo` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`rut`),
+  UNIQUE INDEX `rut_UNIQUE` (`rut` ASC) VISIBLE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS `DBPOO`.`Renta` (
+  `idRenta` INT(11) NOT NULL AUTO_INCREMENT,
+  `rutOperador` VARCHAR(10) NOT NULL,
+  `rutCliente` INT(11) NOT NULL,
+  `ObjetoRenta` VARCHAR(9) NOT NULL,
+  PRIMARY KEY (`idRenta`),
+  UNIQUE INDEX `idRenta_UNIQUE` (`idRenta` ASC) VISIBLE,
+  INDEX `fk_Renta_Persona_idx` (`rutOperador` ASC) VISIBLE,
+  INDEX `fk_Renta_Libro1_idx` (`ObjetoRenta` ASC) VISIBLE,
+  CONSTRAINT `fk_Renta_Persona`
+    FOREIGN KEY (`rutOperador`)
+    REFERENCES `DBPOO`.`Persona` (`rut`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Renta_Libro1`
+    FOREIGN KEY (`ObjetoRenta`)
+    REFERENCES `DBPOO`.`Libro` (`idAlfaNumerico`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Renta_Insumo1`
+    FOREIGN KEY (`ObjetoRenta`)
+    REFERENCES `DBPOO`.`Insumo` (`idAlfaNumerico`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS `DBPOO`.`Insumo` (
+  `idInsumo` INT(11) NOT NULL,
+  `idAlfaNumerico` VARCHAR(9) NOT NULL,
+  `nombre` VARCHAR(45) NOT NULL,
+  `modelo` VARCHAR(45) NOT NULL,
+  `tipoObjeto` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`idInsumo`),
+  UNIQUE INDEX `idAlfaNumerico_UNIQUE` (`idAlfaNumerico` ASC) VISIBLE,
+  INDEX `fk_Insumo_DatosObjeto1_idx` (`tipoObjeto` ASC) VISIBLE,
+  CONSTRAINT `fk_Insumo_DatosObjeto1`
+    FOREIGN KEY (`tipoObjeto`)
+    REFERENCES `DBPOO`.`DatosObjeto` (`TipoObjeto`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS `DBPOO`.`Estudiante` (
+  `rut` VARCHAR(10) NOT NULL,
+  `nombre` VARCHAR(45) NULL DEFAULT NULL,
+  `apellido` VARCHAR(45) NULL DEFAULT NULL,
+  `mail` VARCHAR(45) NULL DEFAULT NULL,
+  `sexo` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`rut`),
+  UNIQUE INDEX `rut_UNIQUE` (`rut` ASC) VISIBLE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS `DBPOO`.`DataLogin` (
+  `Persona_rut` VARCHAR(10) NOT NULL,
+  `Password` VARCHAR(45) NOT NULL,
+  INDEX `fk_DataLogin_Persona1_idx` (`Persona_rut` ASC) VISIBLE,
+  CONSTRAINT `fk_DataLogin_Persona1`
+    FOREIGN KEY (`Persona_rut`)
+    REFERENCES `DBPOO`.`Persona` (`rut`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS `DBPOO`.`RentaActual` (
+  `noRenta` VARCHAR(45) NOT NULL,
+  `fecha` DATE NOT NULL,
+  `lugar` VARCHAR(45) NULL DEFAULT NULL,
+  `idRenta` INT(11) NOT NULL,
+  INDEX `fk_datosRenta_Renta1_idx` (`idRenta` ASC) VISIBLE,
+  PRIMARY KEY (`noRenta`),
+  CONSTRAINT `fk_datosRenta_Renta1`
+    FOREIGN KEY (`idRenta`)
+    REFERENCES `DBPOO`.`Renta` (`idRenta`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS `DBPOO`.`DatosObjeto` (
+  `TipoObjeto` VARCHAR(20) NOT NULL,
+  `TiempoPermitido` INT(11) NOT NULL,
+  PRIMARY KEY (`TipoObjeto`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
