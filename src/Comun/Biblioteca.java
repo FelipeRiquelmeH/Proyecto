@@ -221,7 +221,13 @@ public class Biblioteca{
 	}
 	
 	/*
-	 * Genera un archivo ".txt" con todos los libros de la biblioteca.
+	 * Escribe los datos de todos los libros de la biblioteca en un archivo ".txt".
+	 * Recibe la dirección del archivo.
+	 */
+	@Deprecated
+	/*
+	 * Metodo no usado en el programa, recordatorio de eliminar si no causa problemas
+	 * posteriores.
 	 */
 	public void reporteLibros(String fileOut) throws IOException {
 		ArrayList<String> lista = listaLibros();
@@ -239,6 +245,11 @@ public class Biblioteca{
 	 * Recibe un area de texto de ventana y la llena con la informacion de los libros
 	 * de la biblioteca.
 	 */
+	@Deprecated
+	/*
+	 * Metodo no es usado en el proyecto, recordatorio de eliminar si no causa problemas
+	 * posteriores.
+	 */
 	public void reporteLibros(TextArea texto) {
 		ArrayList<String> lista = listaLibros();
 		if(lista != null && lista.isEmpty()) {
@@ -253,6 +264,7 @@ public class Biblioteca{
 	
 	/*
 	 * Agrega un usuario a la biblioteca, si es que este no esta ya registrado en ésta.
+	 * Recibe el usuario a ingresar y retorna true si lo agrega y false en caso contrario.
 	 */
 	public boolean agregarUsuario(Usuario nuevoUsuario) {
 		if(buscarUsuario(nuevoUsuario.getRut()) == null) {
@@ -326,6 +338,10 @@ public class Biblioteca{
 		return null;
 	}
 	
+	/*
+	 * Elimina un usuario de la biblioteca.
+	 * Recibe el rut del usuario y retorna true si lo elimina o false en caso contrario.
+	 */
 	public boolean eliminarUsuario(String rutEliminar) {
 		Usuario buscado = buscarUsuario(rutEliminar);
 		if(buscado != null && buscado.getRut().equals(rutEliminar)) {
@@ -335,6 +351,9 @@ public class Biblioteca{
 		return false;
 	}
 	
+	/*
+	 * Crea y retorna un ArrayList de strings con la información de todos los usuarios.
+	 */
 	public ArrayList<String> listaUsuarios(){
 		if(usuarios != null) {
 			ArrayList<String> listUsuarios = new ArrayList<String>(usuarios.size());
@@ -347,6 +366,15 @@ public class Biblioteca{
 		return null;
 	}
 	
+	/*
+	 * Escribe los datos de todos los usuarios de la biblioteca en un archivo.
+	 * Recibe la dirección del archivo.
+	 */
+	@Deprecated
+	/*
+	 * Metodo no usado en el programa, recordatorio de eliminar si no causa problemas
+	 * posteriores.
+	 */
 	public void reporteUsuarios(String fileOut) throws IOException {
 		ArrayList<String> usuarios = listaUsuarios();
 		if(usuarios != null && !usuarios.isEmpty()) { 
@@ -359,6 +387,10 @@ public class Biblioteca{
 		}
 	}
 	
+	/*
+	 * Recibe un area de texto de ventana y lo llena con la información de todos
+	 * los usuarios de la biblioteca.
+	 */
 	public void reporteUsuarios(TextArea texto)  {
 		ArrayList<String> lista = listaUsuarios();
 		if(lista != null && !lista.isEmpty()) {
