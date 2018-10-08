@@ -3,6 +3,9 @@ package Comun;
 import java.io.*;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
+import ConnectionHandler.SqlConection;
 
 
 public class Metodos {
@@ -65,6 +68,7 @@ public class Metodos {
 			return s != null && s.matches("[-+]?\\d*\\.?\\d+"); 
 		}
 	}
+
 	
 public void ConLOG(String...s) {
 	boolean appendmode = false;
@@ -96,7 +100,59 @@ public void ConLOG(String...s) {
 }
 /**    ---------------------------------------------------------------------------------          **/
 	
+	public void EscribirArchivo(String path,ArrayList<String> data) {
+		File file = new File(path);
+		FileWriter fw = null;
+		try {
+			fw = new FileWriter(file);
+			for ( int i = 0;i < data.size();i++ ) {
+				fw.write(data.get(i)+"\r\n");
+			
+			}
+			fw.close();
+		}catch (Exception ex) {
+			System.out.println("Error en escribir archivo");
+			ex.printStackTrace();
+		}
+	}
 	
+	public void SacarDatos(Biblioteca biblioteca) {
+		ArrayList<Libro> libros = biblioteca.getListaLibros();
+		ArrayList<Usuario> usuarios = biblioteca.getUsuarios();
+		
+		ArrayList<String> textoLibros = new ArrayList<String>();
+		String titulo,autor,tema,codigo,estado;
+		for (int i = 0;i<libros.size();i++) {
+			Libro libroActual = libros.get(i);
+			titulo = libroActual.getTitulo();
+			autor = libroActual.getAutor();
+			tema = libroActual.getTema();
+			codigo = libroActual.getCode();
+			estado = libroActual.getEstado();
+			
+			textoLibros.add(codigo+";"+titulo+";"+autor+";"+tema+";"+estado);
+		}
+		ArrayList<String> textoPersonas = new ArrayList<String>();
+		String rut,nombre,apellido,mail;
+		char sexo;
+		for (int i=0;i<usuarios.size();i++) {
+			Usuario usuarioActual = usuarios.get(i);
+			rut = usuarioActual.getRut();
+			nombre = usuarioActual.getNombres();
+			apellido = usuarioActual.getApellidos();
+			mail = usuarioActual.getMail();
+			sexo = usuarioActual.getSexo();
+			textoPersonas.add(rut+";"+nombre+";"+apellido+";"+sexo+";"+mail);
+		}
+		
+		DirAndPaths dir = new DirAndPaths();
+		SqlConection sqlsave = new SqlConection();
+		sqlsave.ActualizarSQLLibros(libros);
+		//sqlsave.ActualizarSQLUsuarios(usuarios);
+		EscribirArchivo (dir.getPathLibro(),textoLibros);
+		EscribirArchivo (dir.getPathPersona(),textoPersonas);
+		
+	}
 	public void GuardarSqlConData(String...data)  {
 		
 		File file = new File("c://POO//SqlData.txt");		//dir.getPathSql()

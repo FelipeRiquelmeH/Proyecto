@@ -14,7 +14,6 @@ import java.util.ResourceBundle;
 
 import Comun.Metodos;
 import ConnectionHandler.SqlConection;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -45,6 +44,11 @@ public class MainController implements Initializable{
 	private Boolean estadoTest = false;
 	
 
+
+	public void stop(){
+	    System.out.println("Stage is closing");
+	}
+	
 	Main command = new Main();
 
 	public void Login(ActionEvent event) throws IOException {
@@ -55,6 +59,13 @@ public class MainController implements Initializable{
 		Scene scene = new Scene(loader.load());
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		stage.setScene(scene);
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+	          public void handle(WindowEvent we) {
+	              System.out.println("Stage is closing");
+	              MenuController menu = loader.getController();
+	              menu.exit();
+	          }
+	      });   
 		stage.show();
 		
 		MenuController menu = loader.getController();
@@ -77,11 +88,10 @@ public class MainController implements Initializable{
 				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 				stage.setScene(scene);
 				stage.show();
-				
 				}catch (Exception Ex) {
 					System.out.println(Ex);
 				}
-			}
+				}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -186,7 +196,7 @@ public class MainController implements Initializable{
 		Guardado.GuardarSqlConData(url,user,pass,db);
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Se han guardado los datos");
-		alert.setHeaderText("Excelente has completado el primer paso !");
+		alert.setHeaderText("Exelente has completado el primer paso !");
 		alert.showAndWait();
 		Stage stage = (Stage) btn_Guardar.getScene().getWindow();
 	    stage.close();
@@ -194,7 +204,7 @@ public class MainController implements Initializable{
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
 			alert.setHeaderText("Hubo un error con respecto a la SQL");
-			alert.setContentText("Porfavor asegurate que la coneccion haya sido exitosa para continuar  "
+			alert.setContentText("Porfavor asegurate que la conneccion haya sido exitosa para continuar  "
 					+ "Si no tienes los datos ahora podras ingresarlos mas tarde");
 			alert.showAndWait();
 		}

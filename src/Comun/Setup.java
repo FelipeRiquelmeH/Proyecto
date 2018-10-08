@@ -2,10 +2,12 @@ package Comun;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 import ConnectionHandler.SqlConection;
 import Exception.ExHandler;
@@ -44,7 +46,7 @@ ExHandler ExH = new ExHandler();
 			while (line != null) 
 			{
 				Usuario user = new Usuario();
-				String[] words=line	.split(",");//	splits the string based on string
+				String[] words=line	.split(";");//	splits the string based on string
 												//	el orden en personas es rut nombres apellidos sexo y mail ;
 				
 				user.setRut(words[0]);
@@ -81,7 +83,6 @@ ExHandler ExH = new ExHandler();
 					libro.setEstado(words[4]);
 					libros.add(libro);
 					linea = readerLibro.readLine();
-					System.out.println(libro.infoLibro());
 				}
 				
 				readerLibro.close();
@@ -133,10 +134,10 @@ ExHandler ExH = new ExHandler();
 		SqlConection SQL = new SqlConection();
 		try {
 			
-			SQL.DescargarPersonas();
-			SQL.DescargarLibro();
-			SQL.DescargarInsumo();
-
+			if (!new File(dir.getPathPersona()).exists()) {	SQL.DescargarPersonas();	}
+			if (!new File(dir.getPathLibro()).exists()) {	SQL.DescargarLibro();		}
+			if (!new File(dir.getPathInsumos()).exists()) {	SQL.DescargarInsumo();		}
+				
 
 		} catch (SQLException | IOException e) {
 			if (dir.debug()) { 	metodos.ConLOG("IN Setup / DescargarPersonas : exception trying to DescargarPersonas()"); 	} 

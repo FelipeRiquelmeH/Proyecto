@@ -6,10 +6,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
+import java.util.ArrayList;
 
 import Comun.DirAndPaths;
+import Comun.Libro;
 import Comun.Metodos;
 import Comun.Setup;
+import Comun.Usuario;
 import Exception.ExHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -124,7 +127,7 @@ public class SqlConection {
 			rut = rs.getString("Rut");
 			sexo = rs.getString("Sexo");
 			mail = rs.getString("Mail");
-			writer.println(rut+","+nombre+","+apellido+","+sexo+","+mail);
+			writer.println(rut+";"+nombre+";"+apellido+";"+sexo+";"+mail);
 			//writer.println("INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('"+rut+"-"+nv+"','"+nombre+"','"+apellido+"','"+mail+"','"+sexo+"');");
 		}
 		CloseConnection();	writer.close();
@@ -154,15 +157,45 @@ public class SqlConection {
 			autor = rs.getString("autor");
 			tema= rs.getString("tema");
 			tipo = rs.getString("tipoObjeto");
-			if(rs.getString("estado") == null)
-				estado = "Buen Estado";
-			else
-				estado = rs.getString("estado");
+			estado = rs.getString("estado");
 			
-			writer.println(id+"; "+nombre+";"+autor+";"+tema+";"+estado);
+			writer.println(id+";"+nombre+";"+autor+";"+tema+";"+estado);
 		}
 		CloseConnection();	writer.close();
 		if(dir.debug()) {met.ConLOG("in: SqlCon / DescargaLibros : Exito  ");}
+	}
+	
+	public void ActualizarSQLUsuarios(ArrayList<Usuario> usuarios) {
+		String tabla = "Estudiante";
+		CreateConnection("Actualizar SQL");
+		for (int i = 0; i<usuarios.size();i++) {
+		Usuario user = usuarios.get(i);
+		accionSql("UPDATE "+tabla+" SET (rut,nombre,apellido,mail,sexo) = ('"+user.getRut()+"','"+user.getNombres()+"','"+user.getApellidos()+"','"+user.getMail()+"','"+user.getSexo()+"');");
+		
+		
+		}
+		
+		CloseConnection();
+	}
+	
+	public void ActualizarSQLLibros(ArrayList<Libro> libros) {
+		String tabla = "Libro";
+		CreateConnection("Actualizar SQL");
+		for (int i = 0; i<libros.size();i++) {
+		Libro libro = libros.get(i);
+		ResultSet rs = preguntaSql("select * FROM "+tabla+" WHERE idAlfaNumerico = '"+ libro.getCode() +"';");
+		accionSql("UPDATE "+tabla+" SET autor = '"+libro.getAutor() + "' ,"
+				+ "idAlfaNumerico = '"+libro.getCode()+"',"
+						+ "nombre = '"+libro.getTitulo()+"',"
+								+ "tema = '"+libro.getTema()+"',"
+										+ "Estado = '"+libro.getEstado()+"'"
+												+ "WHERE idAlfaNumerico = '"+libro.getCode()+"';"  );
+		
+	
+		
+		}
+		
+		CloseConnection();
 	}
 	
 	public void DescargarInsumo() throws SQLException, IOException {
