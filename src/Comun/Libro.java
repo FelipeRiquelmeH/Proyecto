@@ -105,6 +105,9 @@ public class Libro {
 		else if(campo.equalsIgnoreCase("autor")) {
 			this.setAutor((String) dato);
 		}
+		else if(campo.equalsIgnoreCase("tema")) {
+			this.setTema((String) dato);
+		}
 		else if(campo.equalsIgnoreCase("estado")) {
 			this.setEstado((String) dato);
 		}

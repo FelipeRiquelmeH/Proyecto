@@ -41,18 +41,9 @@ public class Biblioteca{
 	}
 	
 	//METODOS LIBROS
-	
-	/*
-	 * Busca cualquier copia del libro, usando el titulo recibido por parametro.
-	 * Retorna una copia si la encontro.
-	 */
-	@Deprecated 
-	/* Este metodo no es usado en el programa, recordatorio de eliminar si no genera problemas
-	 * posteriores.
-	 */
-	public Libro buscarLibro(String nombreLibro) {
+	public Libro buscarLibro(String nombreLibro) {	//Busca libro, cualquier copia
 		if(libros != null && !libros.isEmpty()) {
-			ListIterator<Libro> iterador = libros.listIterator(); //Para recorrer la lista
+			ListIterator<Libro> iterador = libros.listIterator();
 			while(iterador.hasNext()) {
 				Libro libroItr = iterador.next();
 				if(libroItr.getTitulo().equalsIgnoreCase(nombreLibro)) {
@@ -64,23 +55,15 @@ public class Biblioteca{
 		return null;
 	}
 	
-	/* Busca si el codigo generado ya ha sido ocupado por otro libro,
-	 * recibe el codigo separado en parte alfabetica y en parte numerica, siendo
-	 * la ultima generada aleatoriamente. Retorna si encuentra coincidencias.
-	 */
-	public boolean buscarLibro(int codNum, String codAlfa) {
+	public boolean buscarLibro(int codNum) {		//Para generacion de codigo unico
 		if(libros != null && !libros.isEmpty()) {
 			ListIterator<Libro> iterador = libros.listIterator();
 			while(iterador.hasNext()) {
 				Libro actual = iterador.next();
-				if(actual.getCode() != null) {
-					//Se separa el codigo del libro analizado para hacer coincidir con los
-					//argumentos de la función.
-					String[] codAlfaNumerico = actual.getCode().split("-");
-					int num = Integer.parseInt(codAlfaNumerico[1]);
-					if(num == codNum && codAlfa.equals(codAlfaNumerico[0])) {
-						return true;
-					}					
+				String[] codAlfaNumerico = actual.getCode().split("-");
+				int num = Integer.parseInt(codAlfaNumerico[1]);
+				if(num == codNum) {
+					return true;
 				}
 			}
 		}
@@ -88,11 +71,6 @@ public class Biblioteca{
 		return false;
 	}
 	
-	/*
-	 * Busca un libro especifico por codigo recibido en strings separados.
-	 * Recibe el codigo del libro que se quiere buscar.
-	 * Retorna el libro si lo encuentra o null en caso contrario.
-	 */
 	public Libro buscarLibro(String codTipo, String codNum) {
 		if(libros != null && !libros.isEmpty()) {
 			String codigo = codTipo + "-" + codNum;
@@ -107,11 +85,12 @@ public class Biblioteca{
 		return null;
 	}
 	
-	/*
-	 * Agrega un libro a la biblioteca, primero busca si un libro con el mismo codigo existe,
-	 * si no existe, lo agrega a la biblioteca y retorna true, de lo contrario, retorna false.
-	 * Recibe el nuevo libro a agregar.
-	 */
+	public void modificarLibro(String codTipo, String codNum, String campo, Object dato) {
+		if(buscarLibro(codTipo,codNum) != null) {
+			buscarLibro(codTipo,codNum).modificarLibro(campo, dato);
+		}
+	}
+	
 	public boolean agregarLibro(Libro nuevoLibro) {
 		String[] codigo = nuevoLibro.getCode().split("-");
 		if(buscarLibro(codigo[0],codigo[1]) == null) {
@@ -121,12 +100,7 @@ public class Biblioteca{
 		return false;
 	}
 	
-	/*
-	 * Elimina un libro de la biblioteca, si es que existe en ésta. Busca el libro especifico 
-	 * y si lo encuentra, lo elimina de la biblioteca.
-	 * Recibe el codigo del libro especifico en 2 strings.
-	 */
-	public boolean eliminarLibro(String codTipo, String codNum) {
+	public boolean eliminarLibro(String codTipo, String codNum) {	//Elimina libro especifico
 		String codigo = codTipo + "-" + codNum;
 		Libro buscado = buscarLibro(codTipo,codNum);
 			if(buscado != null && buscado.getCode().equals(codigo)) {
@@ -136,11 +110,6 @@ public class Biblioteca{
 		return false;
 	}
 	
-	/*
-	 * Crea una arraylist de copias de un libro con los datos de los libros obtenidos.
-	 * Recibe la parte alfabetica del codigo que indica el tema y parte del titulo del libro.
-	 * Retorna la arraylist creada, con datos si encontro o vacia si no encontro libros.
-	 */
 	public ArrayList<String> listaLibros(String codAlfa, String titulo){
 		if(libros != null & !libros.isEmpty()) {
 			ArrayList<String> listLibros = new ArrayList<String>();
@@ -149,31 +118,18 @@ public class Biblioteca{
 				Libro actual = itrLibros.next();
 				String datos = new String();
 				
-				/*
-				 * Casos de busqueda:
-				 *Si el tema existe y es valido y hay un titulo,
-				 *agrega todas las coincidencias de tema y titulo.
-				 */
 				if(codAlfa != null && !codAlfa.isEmpty() && titulo != null) {
 					if(actual.getCode().contains(codAlfa) && actual.getTitulo().contains(titulo)) {
 						datos += actual.getCode() + " " + actual.getTitulo();
 						listLibros.add(datos);
 					}
 				}
-				/*
-				 * Si el tema existe y es valido pero no hay titulo,
-				 * agrega todos los libros con tema coincidente.
-				 */
 				else if(codAlfa != null && !codAlfa.isEmpty() && titulo == null){
 					if(actual.getCode().contains(codAlfa)) {
 						datos += actual.getCode() + " " + actual.getTitulo();
 						listLibros.add(datos);						
 					}
 				}
-				/*
-				 * Si el codigo no existe o no es valido pero hay un titulo,
-				 * agrega todas las coincidencias con el titulo.
-				 */
 				else if((codAlfa == null || codAlfa.isEmpty()) && titulo != null) {
 					if(actual.getTitulo().contains(titulo)) {
 						datos += actual.getCode() + " " + actual.getTitulo();
@@ -187,11 +143,6 @@ public class Biblioteca{
 		return null;
 	}
 	
-	/*
-	 * Crea una arraylist con los datos de los libros que contienen
-	 * el string nombre en su titulo. Retorna la arraylist si existen libros o null si no
-	 * existen libros en la biblioteca
-	 */
 	public ArrayList<String> listaLibros(String nombre){
 		if(libros != null && !libros.isEmpty()) {
 			ArrayList<String> listLibros = new ArrayList<String>();
@@ -205,9 +156,6 @@ public class Biblioteca{
 		return null;
 	}
 	
-	/*
-	 * Crea y retorna una arraylist de string con los datos de todos los libros de la biblioteca.
-	 */
 	public ArrayList<String> listaLibros(){
 		if(libros != null && !libros.isEmpty()) {
 			ArrayList<String> listLibros = new ArrayList<String>(libros.size());
@@ -220,15 +168,6 @@ public class Biblioteca{
 		return null;
 	}
 	
-	/*
-	 * Escribe los datos de todos los libros de la biblioteca en un archivo ".txt".
-	 * Recibe la dirección del archivo.
-	 */
-	@Deprecated
-	/*
-	 * Metodo no usado en el programa, recordatorio de eliminar si no causa problemas
-	 * posteriores.
-	 */
 	public void reporteLibros(String fileOut) throws IOException {
 		ArrayList<String> lista = listaLibros();
 		if(lista != null && !lista.isEmpty()) {
@@ -241,15 +180,6 @@ public class Biblioteca{
 		}
 	}
 	
-	/*
-	 * Recibe un area de texto de ventana y la llena con la informacion de los libros
-	 * de la biblioteca.
-	 */
-	@Deprecated
-	/*
-	 * Metodo no es usado en el proyecto, recordatorio de eliminar si no causa problemas
-	 * posteriores.
-	 */
 	public void reporteLibros(TextArea texto) {
 		ArrayList<String> lista = listaLibros();
 		if(lista != null && lista.isEmpty()) {
@@ -262,10 +192,6 @@ public class Biblioteca{
 	
 	//METODOS USUARIOS
 	
-	/*
-	 * Agrega un usuario a la biblioteca, si es que este no esta ya registrado en ésta.
-	 * Recibe el usuario a ingresar y retorna true si lo agrega y false en caso contrario.
-	 */
 	public boolean agregarUsuario(Usuario nuevoUsuario) {
 		if(buscarUsuario(nuevoUsuario.getRut()) == null) {
 			usuarios.add(nuevoUsuario);
@@ -274,39 +200,22 @@ public class Biblioteca{
 		return false;
 	}
 	
-	/*
-	 * Crea y retorna una arraylist de usuarios con coincidencias de nombre y/o apellido.
-	 * Recibe nombre y apellido a buscar.
-	 */
 	public ArrayList<Usuario> buscarUsuarios(String nombre, String apellido) {
 		if(usuarios != null && !usuarios.isEmpty()) {
 			ArrayList<Usuario> users = new ArrayList<Usuario>();
 			ListIterator<Usuario> iterador = usuarios.listIterator();
 			while(iterador.hasNext()) {
 				Usuario usuarioItr = (Usuario)iterador.next();
-				/*
-				 * Casos de busqueda:
-				 * Si existe el nombre y no el apellido, ve si el usuario contiene
-				 * parte del string nombre en su nombre.
-				 */
 				if(!nombre.isEmpty() && apellido.isEmpty()) {
 					if(usuarioItr.getNombres().contains(nombre)) {
 						users.add(usuarioItr);
 					}
 				}
-				/*
-				 * Si existe apellido y no el nombre, ve si el usuario contiene
-				 * parte del string apellido en su apellido.
-				 */
 				else if(nombre.isEmpty() && !apellido.isEmpty()) {
 					if(usuarioItr.getApellidos().contains(apellido)) {
 						users.add(usuarioItr);
 					}
 				}
-				/*
-				 * Si ambos campos existen busca si el usuario contiene parte de ambos
-				 * strings dentro de su nombre y apellido.
-				 */
 				else if(!nombre.isEmpty() && !apellido.isEmpty()){
 					if(usuarioItr.getNombres().contains(nombre) && usuarioItr.getApellidos().contains(apellido)) {
 						users.add(usuarioItr);
@@ -320,11 +229,6 @@ public class Biblioteca{
 		return null;
 	}
 	
-	/*
-	 * Busca un usuario dentro de la biblioteca.
-	 * Recibe el rut del usuario buscado y retorna el usuario si lo encuentra,
-	 * de lo contrario retorna null.
-	 */
 	public Usuario buscarUsuario(String rutBuscado) {
 		if(usuarios != null && !usuarios.isEmpty()) {
 			ListIterator<Usuario> iterador = usuarios.listIterator();
@@ -338,10 +242,12 @@ public class Biblioteca{
 		return null;
 	}
 	
-	/*
-	 * Elimina un usuario de la biblioteca.
-	 * Recibe el rut del usuario y retorna true si lo elimina o false en caso contrario.
-	 */
+	public void modificarUsuario(String rut, String campo, Object dato) {
+		if(buscarUsuario(rut) != null) {
+			buscarUsuario(rut).modificarUsuario(campo,dato);
+		}
+	}
+	
 	public boolean eliminarUsuario(String rutEliminar) {
 		Usuario buscado = buscarUsuario(rutEliminar);
 		if(buscado != null && buscado.getRut().equals(rutEliminar)) {
@@ -351,9 +257,6 @@ public class Biblioteca{
 		return false;
 	}
 	
-	/*
-	 * Crea y retorna un ArrayList de strings con la información de todos los usuarios.
-	 */
 	public ArrayList<String> listaUsuarios(){
 		if(usuarios != null) {
 			ArrayList<String> listUsuarios = new ArrayList<String>(usuarios.size());
@@ -366,15 +269,6 @@ public class Biblioteca{
 		return null;
 	}
 	
-	/*
-	 * Escribe los datos de todos los usuarios de la biblioteca en un archivo.
-	 * Recibe la dirección del archivo.
-	 */
-	@Deprecated
-	/*
-	 * Metodo no usado en el programa, recordatorio de eliminar si no causa problemas
-	 * posteriores.
-	 */
 	public void reporteUsuarios(String fileOut) throws IOException {
 		ArrayList<String> usuarios = listaUsuarios();
 		if(usuarios != null && !usuarios.isEmpty()) { 
@@ -387,10 +281,6 @@ public class Biblioteca{
 		}
 	}
 	
-	/*
-	 * Recibe un area de texto de ventana y lo llena con la información de todos
-	 * los usuarios de la biblioteca.
-	 */
 	public void reporteUsuarios(TextArea texto)  {
 		ArrayList<String> lista = listaUsuarios();
 		if(lista != null && !lista.isEmpty()) {

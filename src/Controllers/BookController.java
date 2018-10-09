@@ -20,34 +20,34 @@ public class BookController {
 	
 	public void guardarCambios(ActionEvent event) {
 		if(!bkTitulo.getText().isEmpty()) {
-			libro.modificarLibro("titulo", bkTitulo.getText());
+			libro.setTitulo(bkTitulo.getText());
 		}
 		if(!bkAutor.getText().isEmpty()) {
-			libro.modificarLibro("autor", bkAutor.getText());
+			libro.setAutor(bkAutor.getText());
 		}
 		if(cbDisp.getSelectionModel().getSelectedItem() != null) {
 			if(cbDisp.getValue().equals("Pregrado")) {
-				libro.modificarLibro("dias", 5);
+				libro.setDias(5);
 			}
 			else if(cbDisp.getValue().equals("Tesis")) {
-				libro.modificarLibro("dias",2);
+				libro.setDias(2);
 			}
 			else if(cbDisp.getValue().equals("Postgrado")) {
-				libro.modificarLibro("dias",3);
+				libro.setDias(3);
 			}
 			else if(cbDisp.getValue().equals("Otro")) {
-				libro.modificarLibro("dias",7);;
+				libro.setDias(7);
 			}
 		}
 		if(cbEstado.getSelectionModel().getSelectedItem() != null) {
 			if(cbEstado.getValue().equals("Nuevo")) {
-				libro.modificarLibro("estado","Nuevo");
+				libro.setEstado("Nuevo");
 			}
 			else if(cbEstado.getValue().equals("Buen Estado")) {
-				libro.modificarLibro("estado","Buen Estado");
+				libro.setEstado("Buen Estado");
 			}
 			else {
-				libro.modificarLibro("estado","Decente");
+				libro.setEstado("Decente");
 			}
 		}
 		bookInfo.clear();

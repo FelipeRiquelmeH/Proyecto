@@ -30,10 +30,10 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Text layoutX="32.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Codigo Unico" />
-                  <TextField fx:id="bkCode" layoutX="142.0" layoutY="25.0" prefHeight="31.0" prefWidth="150.0" promptText="XXXX - 0000" />
         <Button layoutX="310.0" layoutY="25.0" mnemonicParsing="false" onAction="#buscarLibro" text="Buscar" />
       <TextArea fx:id="bookInfo" editable="false" focusTraversable="false" layoutX="45.0" layoutY="70.0" opacity="0.81" prefHeight="214.0" prefWidth="212.0" />
+                  <Text layoutX="32.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Codigo Unico" />
+                  <TextField fx:id="bkCode" layoutX="142.0" layoutY="25.0" prefHeight="31.0" prefWidth="150.0" promptText="XXXX - 0000" />
                   <Button layoutX="310.0" layoutY="239.0" mnemonicParsing="false" onAction="#eliminarLibro" text="Eliminar" />
                   <Label fx:id="bkAlert" layoutX="285.0" layoutY="104.0" prefHeight="67.0" prefWidth="181.0" />
 	</children></AnchorPane>

@@ -2,6 +2,7 @@ package ConnectionHandler;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,8 +22,6 @@ import javafx.stage.Stage;
 
 /**
  * @author Nicolas
- *	
- *
  **/
 
 
@@ -74,7 +73,7 @@ public class SqlConection {
 				String line = reader.readLine();
 				
 				while ((line != null) && (i<3  )) {
-					met.ConLOG("read line for sqlData: ",line);
+					if (dir.intensiveDebug()) {met.ConLOG("read line for sqlData: ",line);}
 					linea[i] = line;
 					line = reader.readLine();
 					i++;
@@ -111,11 +110,6 @@ public class SqlConection {
 		String dataBase = this.dbName;
 		accionSql ("use "+dataBase);
 		String query = "Select * from " + tablaEstudiantes;
-
-		/*
-		 * TODO: not finished just **working** reed re-work
-		 */
-
 		ResultSet rs = preguntaSql(query);
 		
 		String mail,nombre,apellido,rut,sexo;
@@ -128,7 +122,6 @@ public class SqlConection {
 			sexo = rs.getString("Sexo");
 			mail = rs.getString("Mail");
 			writer.println(rut+";"+nombre+";"+apellido+";"+sexo+";"+mail);
-			//writer.println("INSERT INTO Estudiante (rut,nombre,apellido,mail,sexo) VALUES ('"+rut+"-"+nv+"','"+nombre+"','"+apellido+"','"+mail+"','"+sexo+"');");
 		}
 		CloseConnection();	writer.close();
 		if(dir.debug()) {met.ConLOG("in: SqlCon / DescargaPersonas : Exito  ");}
@@ -141,11 +134,6 @@ public class SqlConection {
 		String dataBase = this.dbName;
 		accionSql ("use "+dataBase);
 		String query = "Select * from " + dbLibros;
-
-		/*
-		 * TODO: not finished just **working** reed re-work
-		 */
-
 		ResultSet rs = preguntaSql(query);
 		
 		String id,nombre,autor,tema,tipo,estado;
@@ -165,38 +153,154 @@ public class SqlConection {
 		if(dir.debug()) {met.ConLOG("in: SqlCon / DescargaLibros : Exito  ");}
 	}
 	
+	@Deprecated
 	public void ActualizarSQLUsuarios(ArrayList<Usuario> usuarios) {
 		String tabla = "Estudiante";
 		CreateConnection("Actualizar SQL");
 		for (int i = 0; i<usuarios.size();i++) {
 		Usuario user = usuarios.get(i);
 		accionSql("UPDATE "+tabla+" SET (rut,nombre,apellido,mail,sexo) = ('"+user.getRut()+"','"+user.getNombres()+"','"+user.getApellidos()+"','"+user.getMail()+"','"+user.getSexo()+"');");
-		
-		
 		}
 		
 		CloseConnection();
 	}
 	
+	public void subirRentas(ArrayList<String> rentas  ) {
+		String tabla = "Renta";
+		CreateConnection("Actualizar RentaSQL");
+		
+		for ( int i=0;i<rentas.size();i++ ) {
+			String [] rentaSplited = rentas.get(i).split(";");
+			
+		
+			accionSql("INSERT INTO "+tabla+" (rutOperador,rutCliente,fecha,ObjetoRenta,Rentado) VALUES ('"+rentaSplited[0]+"','"+rentaSplited[1]+  "','"+ rentaSplited[2] +"','"+ rentaSplited[3] +"','SI');");
+			
+			
+		}
+		
+		
+		
+		CloseConnection();
+	}
+	
+	public void DescargaRentas() throws FileNotFoundException, SQLException {
+	
+		CreateConnection("DescargarRentas");
+		String dataBase = this.dbName;
+		accionSql ("use "+dataBase);
+		String query = "Select * from Renta";
+
+		/*
+		 * TODO: not finished just **working** reed re-work
+		 */
+
+		ResultSet rs = preguntaSql(query);
+		
+		String rutO,rutC,fecha,libro,rentado;
+		PrintWriter writer = new PrintWriter(dir.getPathRenta());
+		while (rs.next()) 
+		{
+			rutO = rs.getString("rutOperador");
+			rutC = rs.getString("rutCliente");
+			fecha = rs.getString("Fecha");
+			libro = rs.getString("ObjetoRenta");
+			rentado = rs.getString("Rentado");
+
+			
+			writer.println(rutO+";"+rutC+";"+fecha+";"+libro+";"+rentado);
+		}
+		CloseConnection();	writer.close();
+		if(dir.debug()) {met.ConLOG("in: SqlCon / DescargaLibros : Exito  ");}
+		
+	}
+	
+	//-------------------------------------------------------------------------------------------------------------
+	/*
+	 * ActualizarSQLLibros es un metodo que como dice su nombre actualiza los libros con la base de datos
+	 * primero busca que libros no estan en la sql para poder agregarlos
+	 * luego busca cuales no estan en memoria para quitarlos entendiendo que si no estan en memoria se borraron 
+	 * y por ultimo avtualiza datos que puedan haber sido cambiados 
+	 * 
+	 */
 	public void ActualizarSQLLibros(ArrayList<Libro> libros) {
 		String tabla = "Libro";
 		CreateConnection("Actualizar SQL");
+		
+		
+		String id;
+		boolean status = false;
+		
+		/*
+		 * Quita los que estan en la sql que no esten en memoria
+		 */
+		ResultSet LibsRs = preguntaSql("select * FROM "+tabla);
+		try {
+			
+			while (LibsRs.next()) {
+				id = LibsRs.getString("idAlfaNumerico");
+				
+				for (int i=0;i<libros.size();i++) {
+						if ( id.equals(libros.get(i).getCode()) ) {
+							status = true;
+						}
+				}
+				if (!status) {
+					accionSql("DELETE FROM "+tabla+" WHERE idAlfaNumerico = '"+ id +"';");
+				}
+				status = false;
+			}
+			
+			LibsRs.close();
+			
+			/*
+			 * Agrega los que esten en memoria si no estan en la sql
+			 */
+			
+			for (int i = 0;i<libros.size();i++) {
+				boolean status2 = false;
+				ResultSet agregaLib = preguntaSql("select * FROM "+tabla+" WHERE idAlfaNumerico = '"+libros.get(i).getCode()+"';");
+				id = libros.get(i).getCode();
+				
+				while (agregaLib.next()) {
+					if (agregaLib.getString("idAlfaNumerico").equals(id)) {
+						status2 = true;
+					}	
+				}
+				
+				if ( !status2 ) {
+					met.ConLOG("Procediendo a a gregar a en la sql a");
+					accionSql(" INSERT INTO "+tabla+" (idAlfaNumerico,nombre,autor,tema,Estado)  VALUES ('"   
+							+libros.get(i).getCode()+"','"+libros.get(i).getTitulo()+"','"+libros.get(i).getAutor()
+							+"','"+libros.get(i).getTema()+"','"+libros.get(i).getEstado()+"');"	);
+				}
+				agregaLib.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		/*
+		 * 
+		 * Se actualizan los datos en la sql
+		 * 
+		 */
 		for (int i = 0; i<libros.size();i++) {
+			
 		Libro libro = libros.get(i);
-		ResultSet rs = preguntaSql("select * FROM "+tabla+" WHERE idAlfaNumerico = '"+ libro.getCode() +"';");
+		
+		
 		accionSql("UPDATE "+tabla+" SET autor = '"+libro.getAutor() + "' ,"
 				+ "idAlfaNumerico = '"+libro.getCode()+"',"
 						+ "nombre = '"+libro.getTitulo()+"',"
 								+ "tema = '"+libro.getTema()+"',"
 										+ "Estado = '"+libro.getEstado()+"'"
 												+ "WHERE idAlfaNumerico = '"+libro.getCode()+"';"  );
-		
-	
-		
-		}
-		
+		}		
 		CloseConnection();
 	}
+	
+	
+	
 	
 	public void DescargarInsumo() throws SQLException, IOException {
 
@@ -259,6 +363,7 @@ public class SqlConection {
 		}
 
 	}
+	
 	/*
 	 * TODO: Take out those trycatch from below and add them where we call those functions
 	 */
@@ -304,13 +409,17 @@ public class SqlConection {
 		try {
 			return st.executeUpdate(s);
 		} catch (SQLException ex) {
-			EXH.ShowException(ex);
+			//EXH.ShowException(ex);
 			return 0;
 		}		
 	}
 	
 	
-	
+	/*
+	 * Metodo para crear las tablas en una db mysql si esque no existen 
+	 * 
+	 * 
+	 */
 	
 	private void CreateDB() {
 		try {

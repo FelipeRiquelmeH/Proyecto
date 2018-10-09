@@ -158,14 +158,14 @@ public class AddController{
 	
 	/***/
 	
-	public String generateNumCode() {
+	public String generateNumCode(/*Biblioteca biblioteca*/) {
 		String numCode = new String();
 		do {
 			numCode = "";
 			for(int i=0;i<4;i++) {
 				numCode += Integer.toString(ThreadLocalRandom.current().nextInt(0, 10));
 			}
-		}while(biblioteca.buscarLibro(Integer.parseInt(numCode), lblAlfa.getText()));
+		}while(biblioteca.buscarLibro(Integer.parseInt(numCode)));
 		
 		return numCode;
 	}

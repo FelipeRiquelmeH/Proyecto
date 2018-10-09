@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
@@ -53,6 +55,7 @@ ExHandler ExH = new ExHandler();
 				user.setNombres( words[1] );
 				user.setApellidos(words[2]);
 				user.setSexo(words[3].charAt(0) );
+				user.setRentas(CargaRentas(user.getRut()));
 				Usuarios.add(user);
 				line = reader.readLine();
 			}
@@ -61,6 +64,46 @@ ExHandler ExH = new ExHandler();
 			e.printStackTrace();
 		}
 		return Usuarios;
+	}
+	
+	public ArrayList <Rental> CargaRentas(String rut){
+		ArrayList<Rental>rentas = new ArrayList<Rental>();
+		BufferedReader readerRenta;
+		
+		if (new File (dir.getPathRenta()).exists()){
+			try {
+				readerRenta = new BufferedReader(new FileReader (dir.getPathRenta()));
+				String linea = readerRenta.readLine();
+				ArrayList<Libro> libros = CargaLibros();
+				
+
+				while (linea != null) {	
+					String[] words = linea .split(";");
+					for (int i = 0; i < libros.size();i++) {
+						if (libros.get(i).getCode().equals(words[3]) && rut.equals(words[1])  ) {
+							Rental renta = new Rental(libros.get(i));
+							renta.setRut(rut);
+							renta.setFechaRenta(ZonedDateTime.parse(words[2], DateTimeFormatter.ISO_ZONED_DATE_TIME));
+							rentas.add(renta);
+						}
+					}
+					
+					
+					linea = readerRenta.readLine();
+					
+				}
+			}catch (Exception ex)
+			{
+				ex.printStackTrace();
+			}
+		
+		
+		}
+		
+		return rentas;
+		
+		
+		
 	}
 	
 	public ArrayList<Libro> CargaLibros() {
@@ -134,9 +177,10 @@ ExHandler ExH = new ExHandler();
 		SqlConection SQL = new SqlConection();
 		try {
 			
-			if (!new File(dir.getPathPersona()).exists()) {	SQL.DescargarPersonas();	}
-			if (!new File(dir.getPathLibro()).exists()) {	SQL.DescargarLibro();		}
-			if (!new File(dir.getPathInsumos()).exists()) {	SQL.DescargarInsumo();		}
+			SQL.DescargarPersonas();
+			SQL.DescargarLibro();		
+			SQL.DescargarInsumo();		
+			SQL.DescargaRentas();
 				
 
 		} catch (SQLException | IOException e) {

@@ -68,6 +68,13 @@ public class Metodos {
 			return s != null && s.matches("[-+]?\\d*\\.?\\d+"); 
 		}
 	}
+public String getTimeStamp() {
+	
+	Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+	String timeS = sdf.format(timestamp);
+	return timeS;
+}
+
 
 	
 public void ConLOG(String...s) {
@@ -117,9 +124,14 @@ public void ConLOG(String...s) {
 	}
 	
 	public void SacarDatos(Biblioteca biblioteca) {
+		DirAndPaths dir = new DirAndPaths();
+		SqlConection sqlsave = new SqlConection();
 		ArrayList<Libro> libros = biblioteca.getListaLibros();
 		ArrayList<Usuario> usuarios = biblioteca.getUsuarios();
 		
+		
+				
+				
 		ArrayList<String> textoLibros = new ArrayList<String>();
 		String titulo,autor,tema,codigo,estado;
 		for (int i = 0;i<libros.size();i++) {
@@ -129,10 +141,11 @@ public void ConLOG(String...s) {
 			tema = libroActual.getTema();
 			codigo = libroActual.getCode();
 			estado = libroActual.getEstado();
-			
+
 			textoLibros.add(codigo+";"+titulo+";"+autor+";"+tema+";"+estado);
 		}
 		ArrayList<String> textoPersonas = new ArrayList<String>();
+		ArrayList<Rental> rentas = new ArrayList<Rental>();
 		String rut,nombre,apellido,mail;
 		char sexo;
 		for (int i=0;i<usuarios.size();i++) {
@@ -143,12 +156,26 @@ public void ConLOG(String...s) {
 			mail = usuarioActual.getMail();
 			sexo = usuarioActual.getSexo();
 			textoPersonas.add(rut+";"+nombre+";"+apellido+";"+sexo+";"+mail);
+			
+			for (int j = 0; j<usuarioActual.getRentas().size();j++) {
+				rentas.add(usuarioActual.getRentas().get(j));	
+			}
 		}
 		
-		DirAndPaths dir = new DirAndPaths();
-		SqlConection sqlsave = new SqlConection();
+		ArrayList<String>textoRentas = new ArrayList<String>();
+		
+		for (int j = 0; j<rentas.size();j++) {
+			textoRentas.add( dir.getOperador()+";"+rentas.get(j).getRut()+";"+rentas.get(j).getFechaRenta()+";"+rentas.get(j).getLibro().getCode() +";" );
+			
+		}
+		
+		
+		
+		
 		sqlsave.ActualizarSQLLibros(libros);
+		sqlsave.subirRentas( textoRentas );
 		//sqlsave.ActualizarSQLUsuarios(usuarios);
+		EscribirArchivo (dir.getPathRenta(),textoRentas);
 		EscribirArchivo (dir.getPathLibro(),textoLibros);
 		EscribirArchivo (dir.getPathPersona(),textoPersonas);
 		

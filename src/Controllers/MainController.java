@@ -2,6 +2,9 @@ package Controllers;
 
 import application.Main;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -50,9 +53,8 @@ public class MainController implements Initializable{
 	}
 	
 	Main command = new Main();
-
-	public void Login(ActionEvent event) throws IOException {
-		FXMLLoader loader = new FXMLLoader();
+	public void login () throws IOException {
+		FXMLLoader loader = new FXMLLoader();		
 		loader.setLocation(getClass().getResource("/Views/Main.fxml"));
 		command.closeLogin((Stage)txtID.getScene().getWindow());
 		Stage stage = new Stage();
@@ -65,29 +67,28 @@ public class MainController implements Initializable{
 	              MenuController menu = loader.getController();
 	              menu.exit();
 	          }
-	      });   
+	      });  
 		stage.show();
 		
 		MenuController menu = loader.getController();
 		menu.initialize();
 	}
 	
-	/*public void login(ActionEvent event)  {
+	public void Login(ActionEvent event)  {
 		
 			SqlConection sql = new SqlConection();
 			
 		try {
 			if(sql.LookUser(txtID.getText(),txtPass.getText())) {
-				
+				BufferedWriter output = null;
+		            File file = new File("c://POO//Operador.txt");
+		            output = new BufferedWriter(new FileWriter(file));
+		            output.write(txtID.getText());
+		            output.close();
+		        
 				try {
-				Parent root = FXMLLoader.load(getClass().getResource("/Views/Main.fxml"));
-				command.closeLogin((Stage)txtID.getScene().getWindow());
-				Stage stage = new Stage();
-				stage.setResizable(false);
-				Scene scene = new Scene(root);
-				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-				stage.setScene(scene);
-				stage.show();
+					login();
+
 				}catch (Exception Ex) {
 					System.out.println(Ex);
 				}
@@ -99,7 +100,7 @@ public class MainController implements Initializable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		}*/
+		}
 		
 	public void SQLSetup(ActionEvent event) throws Exception {
 		String[] data = new String[6];
