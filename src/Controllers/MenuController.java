@@ -2,17 +2,12 @@ package Controllers;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-
-import java.io.IOException;
-import java.util.ArrayList;
 import Comun.*;
 
 public class MenuController{

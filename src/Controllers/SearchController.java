@@ -5,9 +5,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.ListIterator;
 
 import Comun.*;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -79,7 +81,8 @@ public class SearchController {
 		if(!userInfo.getText().isEmpty()) {
 			String path = "C://POO/Reportes/Usuarios";
 			new File(path).mkdirs();
-			String fileOut = userInfo.getText();
+			ObservableList<CharSequence> fileOut = userInfo.getParagraphs();
+			Iterator<CharSequence> itr = fileOut.iterator();
 			BufferedWriter writer;
 			if(selectAllRentas.isSelected()) {
 				writer = new BufferedWriter(new FileWriter(path + "/AllUsers&Rents.txt"));					
@@ -93,7 +96,11 @@ public class SearchController {
 			else {
 				writer = new BufferedWriter(new FileWriter(path + "/ReporteComun.txt"));
 			}
-			writer.write(fileOut);
+
+			while(itr.hasNext()) {
+				writer.append(itr.next());
+				writer.newLine();
+			}
 			writer.close();
 			
 			Alert alert = new Alert(AlertType.INFORMATION);
@@ -136,8 +143,10 @@ public class SearchController {
 			if(bkCode.getText().indexOf('-') != -1) {
 				String[] alfaNum = bkCode.getText().split("-");
 				Libro buscado =	biblioteca.buscarLibro(alfaNum[0], alfaNum[1]);
-				buscado.mostrarInfo(bookInfo);
-				btnEditLibro.setVisible(true);
+				if(buscado != null) {
+					buscado.mostrarInfo(bookInfo);
+					btnEditLibro.setVisible(true);
+				}
 			}
 		}
 		else{
@@ -167,20 +176,30 @@ public class SearchController {
 		if(!bookInfo.getText().isEmpty()) {
 			String path = "C://POO/Reportes/Libros";
 			new File(path).mkdirs();
-			String fileOut = bookInfo.getText();
+			ObservableList<CharSequence> fileOut = bookInfo.getParagraphs();
+			Iterator<CharSequence> itr = fileOut.iterator();
 			BufferedWriter writer;
+			
 			if(!bkCode.getText().isEmpty()) {
-				writer = new BufferedWriter(new FileWriter(path + "/Reporte-" + bkCode.getText() +  ".txt"));					
+				writer = new BufferedWriter(new FileWriter(path + "/Reporte-" + bkCode.getText() +  ".txt"));			
 			}
-			else if(!bkTema.getSelectionModel().getSelectedItem().isEmpty()) {
-				writer = new BufferedWriter(new FileWriter(path + "/(Temporal) Themed [" + bkTema.getSelectionModel().getSelectedItem() + "].txt"));
+			else if(bkTema.getSelectionModel().getSelectedItem() != null && !bkTema.getSelectionModel().getSelectedItem().isEmpty()) {
+				writer = new BufferedWriter(new FileWriter(path + "/(Temporal) Themed [" + bkTema.getSelectionModel().getSelectedItem() + "].txt"));					
+				
 			}
-			else{
+			else if(!bkNombre.getText().isEmpty()){
 				writer = new BufferedWriter(new FileWriter(path + "/(Temporal) Themed " + bkNombre.getText() + ".txt"));
 			}
-			writer.write(fileOut);
-			writer.close();
+			else {
+				writer = new BufferedWriter(new FileWriter(path + "/AllBooks.txt"));
+			}
 			
+			while(itr.hasNext()) {
+				writer.append(itr.next());
+				writer.newLine();
+			}
+			writer.close();				
+
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Exito");
 			alert.setHeaderText("Reporte Generado exitosamente");

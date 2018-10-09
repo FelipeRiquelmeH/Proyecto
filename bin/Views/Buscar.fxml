@@ -61,6 +61,7 @@
                   <TextField fx:id="bkCode" layoutX="126.0" layoutY="181.0" prefHeight="31.0" prefWidth="150.0" promptText="XXXX - 0000" />
                   <Button layoutX="152.0" layoutY="302.0" mnemonicParsing="false" onAction="#generarReporteLibro" text="Generar Reporte" />
                   <Text layoutX="77.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Busqueda Especifica" />
+                  <Label fx:id="lblTema" layoutX="240.0" layoutY="79.0" text="XXXX" />
                   <Button fx:id="btnEditLibro" layoutX="96.0" layoutY="235.0" mnemonicParsing="false" onAction="#editarLibro" text="Editar Libro" />
 	</children></AnchorPane>
       </content>

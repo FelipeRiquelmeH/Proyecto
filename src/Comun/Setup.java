@@ -2,14 +2,12 @@ package Comun;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.ListIterator;
 
 import ConnectionHandler.SqlConection;
 import Exception.ExHandler;
@@ -22,9 +20,9 @@ import javafx.stage.Stage;
 
 public class Setup {
 
-DirAndPaths dir = new DirAndPaths();
-Metodos metodos = new Metodos();
-ExHandler ExH = new ExHandler();
+	private DirAndPaths dir = new DirAndPaths();
+	private Metodos metodos = new Metodos();
+	private ExHandler ExH = new ExHandler();
 
 
 	public void CheckSetup() {
@@ -120,10 +118,11 @@ ExHandler ExH = new ExHandler();
 					
 					String[] words = linea .split(";");
 					libro = new Libro( words[0] );
-					libro.setTitulo(words[1]);	
+					libro.setTitulo(words[1]);
 					libro.setAutor(words[2]);
-					libro.setTema(words[3]);			
+					libro.setTema(words[3]);		
 					libro.setEstado(words[4]);
+					libro.setDias(5); //Valor predefinido por mientras
 					libros.add(libro);
 					linea = readerLibro.readLine();
 				}

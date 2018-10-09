@@ -22,7 +22,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -38,7 +37,6 @@ import javafx.stage.WindowEvent;
 
 
 public class MainController implements Initializable{
-	Stage stage1 = null;
 	@FXML private ProgressBar pbar_Progress = new ProgressBar(0);
 	@FXML private TextField txtID,txtPass;
 	@FXML private TextField Txt_IP,Txt_Port,Txt_User,Txt_Password,Txt_DB;
@@ -53,6 +51,7 @@ public class MainController implements Initializable{
 	}
 	
 	Main command = new Main();
+	
 	public void login () throws IOException {
 		FXMLLoader loader = new FXMLLoader();		
 		loader.setLocation(getClass().getResource("/Views/Main.fxml"));
